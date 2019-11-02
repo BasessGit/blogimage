@@ -18,9 +18,27 @@
                         <value>application/json;charset=utf-8</value>
                     </list>
                 </property>
-
+                <property name="fastJsonConfig" ref="fastJsonConfig"></property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
+    <!--falstjson序列化值-->
+    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="serializerFeatures">
+        <list>
+           <!-- 默认输出map的value为""-->
+            <value>WriteMapNullValue</value>
+           <!-- Number类型的null值改为0-->
+            <value>WriteNullNumberAsZero</value>
+           <!-- lisr类型的null值改为“”-->
+            <value>WriteNullListAsEmpty</value>
+            <!--String类型的null值改为“”-->
+            <value>WriteNullStringAsEmpty</value>
+            <!--boller类型的null值，改为false-->
+            <value>WriteNullBooleanAsFalse</value>
+            <!--格式化data-->
+            <value>WriteDateUseDateFormat</value>
+        </list>
+        </property>
+    </bean>
 </beans>
