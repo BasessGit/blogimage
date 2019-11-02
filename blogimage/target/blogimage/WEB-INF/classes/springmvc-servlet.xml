@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!--组件扫描-->
+    <context:component-scan base-package="cn.wuaijing.controller"></context:component-scan>
+    <!--注解扫描-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean id="fastJsonpHttpMessageConverter4" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=utf-8</value>
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+                <property name="fastJsonConfig" ref="fastJsonConfig"></property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--falstjson序列化值-->
+    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="serializerFeatures">
+        <list>
+           <!-- 默认输出map的value为""-->
+            <value>WriteMapNullValue</value>
+           <!-- Number类型的null值改为0-->
+            <value>WriteNullNumberAsZero</value>
+           <!-- lisr类型的null值改为“”-->
+            <value>WriteNullListAsEmpty</value>
+            <!--String类型的null值改为“”-->
+            <value>WriteNullStringAsEmpty</value>
+            <!--boller类型的null值，改为false-->
+            <value>WriteNullBooleanAsFalse</value>
+            <!--格式化data-->
+            <value>WriteDateUseDateFormat</value>
+        </list>
+        </property>
+    </bean>
+</beans>
