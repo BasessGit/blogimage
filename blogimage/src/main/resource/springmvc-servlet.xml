@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
     <!--组件扫描-->
     <context:component-scan base-package="cn.wuaijing.controller"></context:component-scan>
+     <mvc:default-servlet-handler />
     <!--注解扫描-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">

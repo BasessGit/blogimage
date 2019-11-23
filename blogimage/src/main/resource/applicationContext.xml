@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:component-scan base-package="cn.wuaijing.service"></context:component-scan>
+    <bean id="weatherURL" class="cn.wuaijing.bean.WeatherURL">
+        <property name="host" value="https://iweather.market.alicloudapi.com"></property>
+        <property name="appCode" value="1"></property>
+        <property name="path" value="/address"></property>
+        <property name="method" value="GET"></property>
+        <property name="header" >
+            <map>
+                <entry key="Authorization" value="APPCODE 227a5b3ffab7404d90f3749d8d920f53"></entry>
+            </map>
+        </property>
+        <property name="query">
+            <map>
+                <entry key="area" value="蓬江区"></entry>
+                <entry key="city" value="江门"></entry>
+                <entry key="needday" value="1"></entry>
+                <entry key="prov" value="广东"></entry>
+            </map>
+        </property>
+    </bean>
 </beans>
