@@ -1,6 +1,5 @@
+import cn.wuaijing.controller.WeatherController;
 import cn.wuaijing.service.WeatherService;
-import cn.wuaijing.service.WeatherServiceImpl;
-import cn.wuaijing.util.PareStringUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,16 +18,29 @@ public class TestGuangDong {
     @Autowired
     private WeatherService weatherService;
 
+    @Autowired
+    private WeatherController weatherController;
+
         @Test
         public  void testWeatherService(){
 
-        String res = weatherService.getWeather("GET");
+        String res = weatherService.getWeather();
 
         }
         @Test
         public void testInWeatherJOSN(){
-        JSONObject jsonObject =  weatherService.getWeatherToJSON("GET");
+            Map<String,String> q = new HashMap<>();
+        JSONObject jsonObject =  weatherService.getWeatherToJSON(q);
+
         System.out.println(jsonObject.toString());
 
     }
+
+    @Test
+    public void testWeatherController(){
+
+        System.out.println("controller"+ weatherController.getWeatherController().toString());
+
+    }
+
 }
