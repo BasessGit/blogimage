@@ -58,6 +58,23 @@ public class HttpUtil {
     }
 
     /**
+     * 不含请求头部信息的GET请求
+     * @param host
+     * @param path
+     * @param query
+     * @return
+     * @throws IOException
+     */
+    public static HttpResponse SendGet(String host, String path,
+                                       Map<String, String> query) throws IOException {
+        //创建客户端请求
+        HttpClient httpClient = creatClient(host, path);
+        HttpGet httpGet = new HttpGet(buildUrl(host,path,query));
+        return httpClient.execute(httpGet);
+    }
+
+
+    /**
      * POST请求 Body封装成Map
      * @param host
      * @param path
@@ -156,8 +173,8 @@ public class HttpUtil {
     private static HttpClient creatClient(String host, String path) {
         //创建一个http客户端
         HttpClient client = HttpClientBuilder.create().build();
-        //判断起始位置是否是https
-        if (host.startsWith("https://")) {
+        //删除前后空格并判断起始位置是否是https
+        if (host.trim().startsWith("https://")) {
             return sslClient();
             //判断host是否为空并且path不为空，path开头是https
         } else if (StringUtils.isBlank(host) && path != null && path.startsWith("https://")) {
@@ -256,7 +273,7 @@ public class HttpUtil {
         if (null != queries){
             StringBuilder subQuery = new StringBuilder();
             for (Map.Entry<String,String> query:queries.entrySet()
-                 ) {
+            ) {
                 //如果subQuery的长度大于0，则追加“&”
                 if (0 < subQuery.length()){
                     subQuery.append("&");
@@ -267,17 +284,17 @@ public class HttpUtil {
                 }
                 if(StringUtils.isNotBlank(query.getKey())){
                     subQuery.append(query.getKey());
-                        if (StringUtils.isNotBlank(query.getValue())){
-                           subQuery.append("=");
-                            String urlPath = "";
-                            try{
-                               urlPath =  URLEncoder.encode(query.getValue(), "utf-8");
-                           }catch (UnsupportedEncodingException uee){
-                                uee.printStackTrace();
-                            }
-                            subQuery.append(urlPath);
-
+                    if (StringUtils.isNotBlank(query.getValue())){
+                        subQuery.append("=");
+                        String urlPath = "";
+                        try{
+                            urlPath =  URLEncoder.encode(query.getValue(), "utf-8");
+                        }catch (UnsupportedEncodingException uee){
+                            uee.printStackTrace();
                         }
+                        subQuery.append(urlPath);
+
+                    }
                 }
             }
             if (0 < subQuery.length()){
@@ -286,4 +303,5 @@ public class HttpUtil {
         }
         return  url.toString();
     }
+
 }

@@ -231,6 +231,16 @@ public class TEST {
         }
 
         */
+
+import cn.wuaijing.controller.WeatherController;
+import cn.wuaijing.service.WeatherService;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
          * Delete
          *
@@ -326,3 +336,42 @@ public class TEST {
     }
 }
 */
+
+/*
+* 下面这一行是类，类你可以理解成一个分类吧，就像干垃圾，湿垃圾这样分类
+* public: 这个代表这个类是共有的，具体啥意思，就不多解释了，只要知道单词的意思，当然这个词可以省略
+* class:只要有class关键字的一定是类
+*
+ */
+/*public */ class 干垃圾 {
+   //下面这个呢，是成员变量，也叫属性，这个是这个类的属性，他可以供下面有个叫方法的共同使用
+    //private 这个是代表私有的，说明只能供这个类使用，当然有私有的就有共有的:public
+    private WeatherService weatherService;
+
+    public int id;
+
+    /**
+     * 上面那个叫属性，这个呢，叫方法，方法跟类，有点傻傻分不清楚吧，哈哈，只要看没有class的，或者在class{}里面的
+     * 一般都是方法，方法的作用呢，就是来实现一项简单的功能的，所以说要是试下，比较完善的功能的，需要很多方法
+     * JSONObject 这个呢叫做返回值： 这个要与下面 return 要对应的，这个有啥用呢，就是刚才，跟你说的，一个完善的
+     * 功能需要很多的方法，只有让下一个方法知道，我上一个方法处理的结果，才能走下去
+     * 就相当于1+（?）=?,（）里面的就只相当于一个方法与返回的结果，只有知道这个结果，才能整体算出来
+     * @return
+     */
+    public JSONObject getWeatherController() {
+        //这个叫集合，跟数学的集合差不多意思
+        //String是类型 query 就是对象 new对象嘛
+        Map<String,String> query = new HashMap<>();
+        //这个put呢就是增加的意思，因为map这个集合比较奇怪他是 key value结构的，
+
+        query.put("area","江海区");
+        query.put("city","江门");
+        query.put("needday","1");
+        query.put("prov","广东");
+        //这个也是一个方法 JSONObject jsonObject 这个呢是一个类型，用来接收.getWeatherToJSON(query)
+        //这个方法返回的结果
+        JSONObject jsonObject = weatherService.getWeatherToJSON(query);
+        //这个用来返回这个方法执行的结果
+        return  jsonObject;
+    }
+}

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
         <!--status：自身内部信息的输出，monitorInterval：自动检测修改，重新配置,间隔时间30s-->
 <configuration status = "error" monitorInterval= "30">
+    <Properties>
+        <property name="backupFilePath">E:\Journal</property>
+        <property name="fileName">backup.log</property>
+    </Properties>
     <!--定义附加器-->
     <appenders>
         <!--配置控制台输出-->
         <console name="Console" target="SYSTEM.OUT">
               <!--  输出日志格式-->
-            <PatternLayout pattern="[%d{hh:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </console>
            <!-- 在文件中打印所有信息，每次运行程序都会自动清空-->
         <File name="log" fileName="log/test.log" append="false">
@@ -50,7 +54,7 @@
        <RollingFile name="RollingFileError" fileName="E:\Journal/logs/error.log"
                     filePattern="E:\Journal/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
                   <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
-                  <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+                  <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
                   <Policies>
                    <TimeBasedTriggeringPolicy/>
                   <SizeBasedTriggeringPolicy size="100 MB"/>

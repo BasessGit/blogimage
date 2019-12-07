@@ -5,30 +5,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-    <context:component-scan base-package="cn.wuaijing">
-    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-</context:component-scan>
-    <bean id="weatherURL" class="cn.wuaijing.bean.WeatherURL">
-        <property name="host" value="https://iweather.market.alicloudapi.com"></property>
-        <property name="appCode" value="1"></property>
-        <property name="path" value="/address"></property>
-        <property name="method" value="GET"></property>
-        <property name="header" >
-            <map>
-                <entry key="Authorization" value="APPCODE 227a5b3ffab7404d90f3749d8d920f53"></entry>
-            </map>
-        </property>
-        <property name="query">
-            <map>
-                <entry key="area" value="蓬江区"></entry>
-                <entry key="city" value="江门"></entry>
-                <entry key="needday" value="1"></entry>
-                <entry key="prov" value="广东"></entry>
-            </map>
-        </property>
-    </bean>
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
     <!--redis数据源连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!--设置最大空闲数-->
@@ -39,17 +20,19 @@
         <property name="maxWaitMillis" value="${redis.maxWaitMillis}"></property>
         <!--在获取连接时，检查有效性-->
         <property name="testOnBorrow" value="${redis.testOnBorrow}"></property>
+
     </bean>
     <bean id="password" class="org.springframework.data.redis.connection.RedisPassword">
         <constructor-arg name="thePassword" value="${redis.password}"></constructor-arg>
     </bean>
-   <!-- Spring-data-redis配置-->
-   <bean id="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
-       <property name="hostName" value="${redis.host}"></property>
+    <!-- Spring-data-redis配置-->
+    <bean id="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
+        <property name="hostName" value="${redis.host}"></property>
         <property name="port" value="${redis.port}"></property>
-         <property name="password" ref="password"></property>
+        <property name="password" ref="password"></property>
 
     </bean>
+
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"></property>
         <property name="keySerializer">
@@ -62,19 +45,10 @@
 
     <!--配置jedis链接工厂-->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-       <constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"></constructor-arg>
+        <constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"></constructor-arg>
+
     </bean>
     <!-- Spring-redis配置-->
     <context:property-placeholder ignore-unresolvable="true" order="1" location="classpath*:properties/redis.properties"></context:property-placeholder>
 
-    <!-- Spring-redis配置旧-->
-   <!-- <bean id="annotationPropertyConfigurerRedis" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="order" value="1"></property>
-        <property name="ignoreUnresolvablePlaceholders" value="true"></property>
-        <property name="locations">
-            <list>
-                <value></value>
-            </list>
-        </property>
-    </bean>-->
 </beans>
