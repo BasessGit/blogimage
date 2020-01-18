@@ -56,15 +56,14 @@ public class WeatherServiceImpl implements WeatherService {
             Map<String, String> query = (newQuery.isEmpty()) ? weatherURL.getQuery() : newQuery;
             Map<String, String> header = weatherURL.getHeader();
             JSONObject jsonObject = null;
+
             try {
                 HttpResponse httpResponse = HttpUtil.SendGet(host, path, header, query);
-                System.out.println("httpresponse的值是：" + httpResponse);
                 int code = httpResponse.getStatusLine().getStatusCode();
                 if (200 == code) {
                     jsonObject = ResponseCastJsonObject.castJsonObject(httpResponse);
-                    System.out.println("返回值是：" + jsonObject);
                 } else {
-                    System.out.println("未获取到内容");
+                   return null;
                 }
 
             } catch (IOException e) {

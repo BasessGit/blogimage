@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.Resource;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public class WeatherControllerImpl implements WeatherController {
 
     @Autowired(required = false)
     private WeatherService weatherService;
-
+  
 
     @Override
     public JSONObject getWeatherController() {

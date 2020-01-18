@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.HashMap;
 import java.util.Map;
 
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestGuangDong {
 
@@ -19,7 +19,7 @@ public class TestGuangDong {
     private WeatherService weatherService;
 
     @Autowired
-    private WeatherController weatherController;
+   private WeatherController weatherController;
 
         @Test
         public  void testWeatherService(){
@@ -39,7 +39,7 @@ public class TestGuangDong {
     @Test
     public void testWeatherController(){
 
-        System.out.println("controller"+ weatherController.getWeatherController().toString());
+       System.out.println("controller"+ weatherController.getWeatherController().toString());
 
     }
 
