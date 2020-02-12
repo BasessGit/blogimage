@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class AppToken implements Serializable {
 
+
+    private static final long serialVersionUID = 674367897330837585L;
+
     private String value;
 
     public AppToken () {

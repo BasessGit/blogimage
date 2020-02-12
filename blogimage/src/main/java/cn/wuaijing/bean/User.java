@@ -42,10 +42,6 @@ public class User {
         this.date = date;
     }
 
-    public Boolean isTrue() {
-        return isTrue;
-    }
-
     public void setTrue(Boolean aTrue) {
         isTrue = aTrue;
     }

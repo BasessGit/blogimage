@@ -2,7 +2,8 @@ package cn.wuaijing.service.impl;
 
 import cn.wuaijing.service.AccessTokenService;
 import cn.wuaijing.util.HttpUtil;
-import cn.wuaijing.util.ResponseCastJsonObject;
+
+import cn.wuaijing.util.ResponseCastJsonObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +17,8 @@ import java.util.Map;
 
 @Service
 public class AccessTokenServiceImpl implements AccessTokenService {
-    private String host = "https://api.weixin.qq.com";
-    private String path = "/cgi-bin/token";
-
+    private static final String host = "https://api.weixin.qq.com";
+    private static final String path = "/cgi-bin/token";
 
     private static final Logger logger = LogManager.getLogger(AccessTokenServiceImpl.class.getName());
 
@@ -34,7 +34,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
             logger.info("返回的状态码是"+ httpResponse.getStatusLine().getStatusCode());
             switch (httpResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    appToken = ResponseCastJsonObject.castJsonObject(httpResponse);
+                    appToken = ResponseCastJsonObjectUtil.castJsonObject(httpResponse);
                     break;
                 case -1:
 

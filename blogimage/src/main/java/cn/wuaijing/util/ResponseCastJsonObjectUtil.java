@@ -7,7 +7,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-public class ResponseCastJsonObject {
+public class ResponseCastJsonObjectUtil {
     public static JSONObject castJsonObject(HttpResponse httpResponse) throws IOException {
         HttpEntity entity = httpResponse.getEntity();
         String res = EntityUtils.toString(entity,"utf-8");

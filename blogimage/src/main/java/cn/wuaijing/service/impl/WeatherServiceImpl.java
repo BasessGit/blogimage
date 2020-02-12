@@ -4,7 +4,7 @@ import cn.wuaijing.bean.WeatherURL;
 import cn.wuaijing.service.WeatherService;
 import cn.wuaijing.util.HttpUtil;
 import cn.wuaijing.util.PareStringUtil;
-import cn.wuaijing.util.ResponseCastJsonObject;
+import cn.wuaijing.util.ResponseCastJsonObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import org.apache.http.HttpResponse;
@@ -61,7 +61,7 @@ public class WeatherServiceImpl implements WeatherService {
                 HttpResponse httpResponse = HttpUtil.SendGet(host, path, header, query);
                 int code = httpResponse.getStatusLine().getStatusCode();
                 if (200 == code) {
-                    jsonObject = ResponseCastJsonObject.castJsonObject(httpResponse);
+                    jsonObject = ResponseCastJsonObjectUtil.castJsonObject(httpResponse);
                 } else {
                    return null;
                 }
