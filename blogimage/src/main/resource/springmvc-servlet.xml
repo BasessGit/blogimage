@@ -16,7 +16,7 @@
     <!--组件扫描-->
     <context:component-scan base-package="cn.wuaijing.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController" />
+      <!--  <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController" />-->
     </context:component-scan>
      <mvc:default-servlet-handler/>
     <!--注解扫描-->
@@ -53,17 +53,5 @@
         </list>
         </property>
     </bean>
-    <bean id="accessToken" class="cn.wuaijing.bean.AccessToken">
-        <property name="host" value="${wechat.host}"></property>
-        <property name="path" value="${wechat.path}"></property>
-        <property name="grant_type" value="${wechat.grant_type}"></property>
-        <property name="secret" value="${wechat.secret}"></property>
-        <property name="appid" value="${wechat.appid}"></property>
-    </bean>
-    <context:property-placeholder location="classpath:properties/accessToken.properties" order="1" ignore-unresolvable="true"></context:property-placeholder>
 
-
-
-    <import resource="classpath:spring-quartz-config.xml"></import>
-    <import resource="classpath:spring-redis.xml"></import>
 </beans>

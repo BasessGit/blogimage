@@ -1,21 +1,24 @@
 package cn.wuaijing.bean;
 
-    public class AccessToken {
-        private String host;
+import java.io.Serializable;
+
+public class AccessToken implements Serializable {
+    private static final long serialVersionUID = 2173677851669201509L;
+    private String host;
         private String path;
         private String grant_type;
         private  String secret;
-        private  String appid;
+        private  String appId;
 
         public AccessToken() {
         }
 
-        public AccessToken(String host, String path, String grant_type, String secret, String appid) {
+        public AccessToken(String host, String path, String grant_type, String secret, String appId) {
             this.host = host;
             this.path = path;
             this.grant_type = grant_type;
             this.secret = secret;
-            this.appid = appid;
+            this.appId = appId;
         }
 
         public String getHost() {
@@ -50,12 +53,13 @@ package cn.wuaijing.bean;
             this.secret = secret;
         }
 
-        public String getAppid() {
-            return appid;
+        public String getAppId() {
+            return appId;
         }
 
-        public void setAppid(String appid) {
-            this.appid = appid;
+        public void setAppId(String appId) {
+            this.appId = appId;
         }
+
     }
 

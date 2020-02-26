@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <!--创建线程池-->
+        <bean id="threadPoolTask" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+            <property name="maxPoolSize" value="80"></property>
+            <property name="corePoolSize" value="20"></property>
+            <property name="queueCapacity" value="3000"></property>
+        </bean>
+        <!--注入被调用类-->
+        <bean id="accessTokenServiceImpl" class="cn.wuaijing.service.impl.AccessTokenServiceImpl"></bean>
+        <!-- 注入固定时长的作业类，并注入被调度类与被调度方法-->
+        <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="accessTokenServiceImpl"></property>
+            <property name="targetMethod" value="executionTimerSaveTokenInRedis"></property>
+        </bean>
+        <!-- 注入固定时长触发器，并注入相应的作业类以及触发时间间隔（ms）-->
+        <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+            <property name="jobDetail" ref="jobDetail"></property>
+            <property name="startDelay" value="20000"></property>
+            <property name="repeatInterval" value="6900000"></property>
+            <!--<property name="repeatInterval" value="1800000"></property>-->
+        </bean>
+
+        <!--注入cron表达式作业类，并注入被调度类与被调度方法-->
+        <!--<bean id="jobDetail2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+            <property name="targetObject" ref="timerUtil"></property>
+            <property name="targetMethod" value="printCronTrigger"></property>
+        </bean>-->
+        <!--注入cron表达式触发器，并注入相应的作业类以及触发时间-->
+        <!-- <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+             <property name="jobDetail" ref="jobDetail2"></property>
+             <property name="cronExpression" value="0/4 * * * * ?"></property>
+         </bean>-->
+
+        <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no" lazy-init="false">
+            <property name="triggers">
+                <list>
+                    <!--<ref bean="cronTrigger"></ref>-->
+                    <ref bean="simpleTrigger"></ref>
+                </list>
+            </property>
+            <property name="taskExecutor" ref="threadPoolTask"></property>
+        </bean>
+
+
+</beans>

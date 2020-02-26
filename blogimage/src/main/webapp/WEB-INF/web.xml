@@ -7,7 +7,7 @@
 
  <context-param>
    <param-name>contextConfigLocation</param-name>
-   <param-value>classpath:applicationContext.xml</param-value>
+   <param-value>classpath*:applicationContext.xml</param-value>
  </context-param>
  <context-param>
      <param-name>log4jConfiguration</param-name>
@@ -36,7 +36,7 @@
     </listener>
     <!--spring-web监听-->
   <listener>
-    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
   <servlet>

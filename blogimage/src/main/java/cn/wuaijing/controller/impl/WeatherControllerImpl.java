@@ -16,7 +16,7 @@ import java.util.Map;
 @Controller
 public class WeatherControllerImpl implements WeatherController {
 
-    @Autowired(required = false)
+    @Autowired
     private WeatherService weatherService;
   
 

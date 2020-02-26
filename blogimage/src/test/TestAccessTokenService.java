@@ -2,7 +2,7 @@ import cn.wuaijing.bean.AccessToken;
 import cn.wuaijing.bean.AppToken;
 import cn.wuaijing.service.AccessTokenService;
 import cn.wuaijing.service.impl.AccessTokenServiceImpl;
-import cn.wuaijing.util.AttianAccessTokenUtil;
+import cn.wuaijing.util.CastAccessTokenUtil;
 import cn.wuaijing.util.HttpUtil;
 
 import cn.wuaijing.util.PareStringUtil;
@@ -43,39 +43,17 @@ public class TestAccessTokenService {
 
     @Autowired
     private AccessToken accessToken;
-    @Autowired
-    private AttianAccessTokenUtil attianAccessTokenUtil;
-
     @Test
     public void getAccessToken(){
         System.out.println("\t\t");
-        System.out.println("打印的值是："+accessToken.getAppid());
-       JSONObject jsonObject = accessTokenService .getAccessToken();
-
-        System.out.println(jsonObject.toString());
+        System.out.println("打印的值是："+accessToken.getAppId());
+      // JSONObject jsonObject = accessTokenService .getAccessToken();
+       // System.out.println(jsonObject.toString());
     }
-
-
     @Test
-    public void  geAccessToken() {
-
-        map.put("grant_type","client_credential");
-        map.put("appid", "wx6f0c09bc8228d5b4");
-        map.put("secret", "4bde38a25b6a6de4ec697d0a6cae66df");
-        HttpResponse httpResponse = null;
-        StringBuffer stringBuffer = new StringBuffer();
-        JSONArray  jsonArray;
-        String arrAppToken = "" ;
-        String appToken = "";
-        try {
-
-            httpResponse =  HttpUtil.SendGet(host,path,map);
-            appToken  = PareStringUtil.pareString(httpResponse);
-        }  catch (IOException e) {
-        logger.info("HttpResponse异常");
-    }
-
-        if(!appToken.isEmpty()){
+    public void getAccessToken1() {
+        System.out.println(accessTokenService.getTokenToRedis());
+        /*if(!appToken.isEmpty()){
 
             arrAppToken = stringBuffer.append("[")
                     .append(appToken)
@@ -93,17 +71,7 @@ public class TestAccessTokenService {
                     logger.info("成功");
                 }
             }
-        }
-    }
 
-    @Test
-    public void getRedisKey(){
-       String s =  redisTemplate.opsForValue().get("access_token");
-        System.out.println(s);
-    }
-
-    @Test
-    public void testAttionAccessTokenUtil(){
-        attianAccessTokenUtil.getAccessToken();
+    }*/
     }
 }

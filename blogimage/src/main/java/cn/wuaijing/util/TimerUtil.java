@@ -14,13 +14,12 @@ import java.util.Date;
 @Component
 public  class TimerUtil {
     private static final Logger logger = LogManager.getLogger(TimerUtil.class.getName());
-    @Autowired
-    private AttianAccessTokenUtil attianAccessTokenUtil;
+
     public void printSimpleTrigger(){
 
         System.out.println("simpleTrigger正在执行定时"+ new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(new Date()));
         logger.info("simpleTrigger开始执行" + new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(new Date()));
-        attianAccessTokenUtil.getAccessToken();
+      //  attianAccessTokenUtil.getAccessToken();
     }
     public void printCronTrigger(){
        // System.out.println("cronTrigger正在执行定时"+ new Sim pleDateFormat("yyy-MM-dd HH:mm:ss").format(new Date()));
